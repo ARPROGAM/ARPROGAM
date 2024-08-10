@@ -2,59 +2,25 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Web AR with AI Integration</title>
+  <title>Web AR with QR Code</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <style>
+    body { margin: 0; }
+    a-scene { width: 100vw; height: 100vh; }
+  </style>
 </head>
 <body>
-  <a-scene embedded arjs='trackingMethod: best;'>
-    <a-marker preset="hiro">
-      <!-- Integrate GLB model -->
-      <a-entity 
-        gltf-model="url(model.glb)"
-        scale="1 1 1"
-        rotation="0 180 0"
-        position="0 0 0">
-      </a-entity>
+  <a-scene embedded arjs='sourceType: webcam; trackingMethod: barcode;'>
+    <a-marker type="barcode" value="1">
+      <!-- AR Content to display when QR code is scanned -->
+      <a-box position="0 0.5 0" material="color: red;" scale="2 2 2"></a-box>
     </a-marker>
     <a-entity camera></a-entity>
   </a-scene>
 
   <script>
-    // Function to load TensorFlow.js model
-    async function loadModel() {
-      try {
-        const model = await tf.loadGraphModel('https://path/to/your/model.json');
-        console.log('Model loaded');
-        return model;
-      } catch (error) {
-        console.error('Error loading model:', error);
-      }
-    }
-
-    // Function to detect objects using TensorFlow.js model
-    async function detectObjects(model, image) {
-      try {
-        const predictions = await model.executeAsync(tf.browser.fromPixels(image));
-        console.log(predictions);
-        // Process predictions here
-      } catch (error) {
-        console.error('Error detecting objects:', error);
-      }
-    }
-
-    // Example function to process AR content
-    function processARContent() {
-      const scene = document.querySelector('a-scene');
-      // Capture AR content and apply AI model
-      // This part will vary based on your model and use case
-    }
-
-    loadModel().then(model => {
-      // Process AR content with the model
-      processARContent();
-    });
+    // Optional: Additional JavaScript for custom functionality
   </script>
 </body>
 </html>
