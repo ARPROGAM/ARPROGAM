@@ -1,49 +1,52 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html>
 <head>
+  <meta charset="utf-8">
+  <title>Web AR with AI Integration</title>
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+</head>
+<body>
+  <a-scene embedded arjs>
+    <a-marker preset="hiro">
+      <!-- Integrate GLB model -->
+      <a-entity 
+        gltf-model="url(model.glb)"
+        scale="2 2 2"
+        rotation="0 180 0"
+        position="0 0 0">
+      </a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+  </a-scene>
 
-    <meta charset="UTF-8">
-	
-	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		    <title>My Web AR Experience</title>
-			
-			    <!-- A-Frame Library -->
-				
-				    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
-					
-					    <!-- AR.js Library -->
-						
-						    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
-							
-							</head>
-							
-							<body style="margin: 0; overflow: hidden;">
-							
-							    <!-- A-Frame Scene -->
-								
-								    <a-scene embedded arjs>
-									
-									        <!-- 3D Model -->
-											
-											        <a-assets>
-													
-													            <a-asset-item id="my-model" src="model.glb"></a-asset-item>
-																
-																        </a-assets>
-																		
-																		        <a-entity gltf-model="#my-model" position="0 0.5 0" scale="0.5 0.5 0.5"></a-entity>
-																				
-																				        <!-- AR Marker -->
-																						
-																						        <a-marker-camera preset="hiro"></a-marker-camera>
-																								
-																								    </a-scene>
-																									
-																									</body>
-																									
-																									</html>
-																									
-																									
+  <script>
+    // Function to load TensorFlow.js model
+    async function loadModel() {
+      const model = await tf.loadGraphModel('https://path/to/your/model.json');
+      console.log('Model loaded');
+      return model;
+    }
+
+    // Function to detect objects using TensorFlow.js model
+    async function detectObjects(model, image) {
+      const predictions = await model.executeAsync(tf.browser.fromPixels(image));
+      console.log(predictions);
+      // Process predictions here
+    }
+
+    // Example function to process AR content
+    function processARContent() {
+      const scene = document.querySelector('a-scene');
+      // Capture AR content and apply AI model
+      // This part will vary based on your model and use case
+    }
+
+    loadModel().then(model => {
+      // Process AR content with the model
+      processARContent();
+    });
+  </script>
+</body>
+</html>
