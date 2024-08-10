@@ -4,16 +4,16 @@
   <meta charset="utf-8">
   <title>Web AR with AI Integration</title>
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://raw.githack.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
 </head>
 <body>
-  <a-scene embedded arjs>
+  <a-scene embedded arjs='trackingMethod: best;'>
     <a-marker preset="hiro">
       <!-- Integrate GLB model -->
       <a-entity 
         gltf-model="url(model.glb)"
-        scale="0.3 0.3 0.3"
+        scale="2 2 2"
         rotation="0 180 0"
         position="0 0 0">
       </a-entity>
@@ -24,16 +24,24 @@
   <script>
     // Function to load TensorFlow.js model
     async function loadModel() {
-      const model = await tf.loadGraphModel('https://path/to/your/model.json');
-      console.log('Model loaded');
-      return model;
+      try {
+        const model = await tf.loadGraphModel('https://path/to/your/model.json');
+        console.log('Model loaded');
+        return model;
+      } catch (error) {
+        console.error('Error loading model:', error);
+      }
     }
 
     // Function to detect objects using TensorFlow.js model
     async function detectObjects(model, image) {
-      const predictions = await model.executeAsync(tf.browser.fromPixels(image));
-      console.log(predictions);
-      // Process predictions here
+      try {
+        const predictions = await model.executeAsync(tf.browser.fromPixels(image));
+        console.log(predictions);
+        // Process predictions here
+      } catch (error) {
+        console.error('Error detecting objects:', error);
+      }
     }
 
     // Example function to process AR content
