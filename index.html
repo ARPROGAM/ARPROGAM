@@ -1,26 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Web AR with QR Code</title>
-  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.js"></script>
-  <style>
-    body { margin: 0; }
-    a-scene { width: 100vw; height: 100vh; }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal YouTube Video Layout with Autoplay and Loop</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .video-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .video-container {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <a-scene embedded arjs='sourceType: webcam; trackingMethod: barcode;'>
-    <a-marker type="barcode" value="1">
-      <!-- AR Content to display when QR code is scanned -->
-      <a-box position="0 0.5 0" material="color: red;" scale="2 2 2"></a-box>
-    </a-marker>
-    <a-entity camera></a-entity>
-  </a-scene>
 
-  <script>
-    // Optional: Additional JavaScript for custom functionality
-  </script>
+    <div class="video-row">
+        <!-- Video 1 (Left) -->
+        <div class="video-container">
+            <iframe width="350" height="200" 
+                    src="https://www.youtube.com/embed/wI_qSgkyla4?autoplay=1&mute=1&loop=1&playlist=wI_qSgkyla4" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+            </iframe>
+            <p>Video 1 (Left)</p>
+        </div>
+
+        <!-- Video 2 (Center) -->
+        <div class="video-container">
+            <iframe width="350" height="200" 
+                    src="https://www.youtube.com/embed/PlXjLOGSfi0?autoplay=1&mute=1&loop=1&playlist=PlXjLOGSfi0" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+            </iframe>
+            <p>Video 2 (Center)</p>
+        </div>
+
+        <!-- Video 3 (Right) -->
+        <div class="video-container">
+            <iframe width="350" height="200" 
+                    src="https://www.youtube.com/embed/rpfVuNtcxI8?autoplay=1&mute=1&loop=1&playlist=rpfVuNtcxI8" 
+                    frameborder="0" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+            </iframe>
+            <p>Video 3 (Right)</p>
+        </div>
+    </div>
+
 </body>
 </html>
